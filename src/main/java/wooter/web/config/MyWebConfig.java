@@ -7,5 +7,5 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableWebMvc
 @ComponentScan("wooter.web.controller")
-public class AppConfig {
+public class MyWebConfig {
 }
