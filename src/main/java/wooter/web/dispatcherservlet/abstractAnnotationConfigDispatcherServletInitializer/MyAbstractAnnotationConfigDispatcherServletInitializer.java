@@ -25,6 +25,6 @@ public class MyAbstractAnnotationConfigDispatcherServletInitializer extends Abst
 
     @Override
     protected Filter[] getServletFilters() {
-        return null;
+        return new Filter[]{};
     }
 }
