@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/view")
 public class MyViewController {
 
-    @RequestMapping("/spittr")
-    public String handle(Model model) {
-        model.addAttribute("message", "Hello World!");
-        return "views/spittr";
+    @RequestMapping("/hello")
+    public String hello(Model model) {
+        model.addAttribute("key", "value");
+        return "helloJsp";
     }
 }

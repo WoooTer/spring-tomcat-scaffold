@@ -1,22 +1,19 @@
 package wooter.web.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import wooter.web.pojo.Person;
 
 @RestController
 @RequestMapping("/rest")
 public class MyRestController {
 
-    @RequestMapping("/hello")
+    @GetMapping("/hello")
     public String hello(){
-        return "Hello Restfull";
+        return "Hello Restfull!";
     }
 
-    @PostMapping("/reqbody")
-    public String add(@RequestBody Person person) {
-        return "reqbody OK";
+    @PostMapping("/response-body")
+    public Person responsebody(@RequestBody Person person) {
+        return person;
     }
 }

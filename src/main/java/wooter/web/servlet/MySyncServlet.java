@@ -12,7 +12,7 @@ public class MySyncServlet extends HttpServlet {
     private String message;
 
     public void init() throws ServletException {
-        message = "Hello MySyncServlet";
+        message = "Hello MySyncServlet!";
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
