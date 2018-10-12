@@ -13,4 +13,9 @@ public class MyViewController {
         model.addAttribute("key", "value");
         return "helloJsp";
     }
+
+    @RequestMapping("/websocket")
+    public String websocket() {
+        return "websocketPage";
+    }
 }

@@ -3,6 +3,7 @@ package wooter.web.dispatcherservlet.abstractAnnotationConfigDispatcherServletIn
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import wooter.web.config.MyRootConfig;
 import wooter.web.config.MyWebConfig;
+import wooter.web.config.MyWebSocketConfig;
 
 import javax.servlet.Filter;
 
@@ -15,7 +16,7 @@ public class MyAbstractAnnotationConfigDispatcherServletInitializer extends Abst
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[] { MyWebConfig.class };
+        return new Class<?>[] { MyWebConfig.class, MyWebSocketConfig.class};
     }
 
     @Override
