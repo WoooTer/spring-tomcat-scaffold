@@ -1,4 +1,4 @@
-package wooter.web.controller;
+package wooter.web.spring.controller;
 
 import org.springframework.web.bind.annotation.*;
 import wooter.web.pojo.Person;

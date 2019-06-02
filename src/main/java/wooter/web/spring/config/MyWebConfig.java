@@ -1,4 +1,4 @@
-package wooter.web.config;
+package wooter.web.spring.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -7,7 +7,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("wooter.web.controller")
+@ComponentScan("wooter.web.spring.controller")
 public class MyWebConfig implements WebMvcConfigurer {
 
     @Override

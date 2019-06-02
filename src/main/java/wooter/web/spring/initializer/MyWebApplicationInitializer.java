@@ -1,9 +1,9 @@
-package wooter.web.dispatcherservlet.webApplicationInitializer;
+package wooter.web.spring.initializer;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
-import wooter.web.config.MyWebConfig;
+import wooter.web.spring.config.MyWebConfig;
 import wooter.web.servlet.MySyncServlet;
 
 import javax.servlet.ServletContext;

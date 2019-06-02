@@ -1,4 +1,4 @@
-package wooter.web.config;
+package wooter.web.spring.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -6,12 +6,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
-import wooter.web.websocket.MyWebSocketHandler;
+import wooter.web.spring.websocket.MyWebSocketHandler;
 
 
 @Configuration
 @EnableWebSocket
-@ComponentScan("wooter.web.websocket")
+@ComponentScan("wooter.web.spring.websocket")
 public class MyWebSocketConfig implements WebSocketConfigurer {
 
     @Autowired

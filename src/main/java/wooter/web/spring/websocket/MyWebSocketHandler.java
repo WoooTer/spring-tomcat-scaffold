@@ -1,4 +1,4 @@
-package wooter.web.websocket;
+package wooter.web.spring.websocket;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
