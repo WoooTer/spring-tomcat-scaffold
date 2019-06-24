@@ -1,11 +1,11 @@
 package wooter.web.spring.config;
 
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.ShutdownSignalException;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.connection.*;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
@@ -21,7 +21,23 @@ public class MyRabbitConfig {
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory factory = new CachingConnectionFactory("localhost", 5672);
+        CachingConnectionFactory factory = new CachingConnectionFactory("47.98.118.73", 5672);
+        factory.setUsername("auxyl");
+        factory.setPassword("auxyl2019");
+
+        factory.setPublisherConfirms(true);
+        factory.setPublisherReturns(true);
+
+        factory.addChannelListener(new ChannelListener() {
+            @Override
+            public void onCreate(Channel channel, boolean transactional) {
+                System.out.println("channel on create");
+            }
+            @Override
+            public void onShutDown(ShutdownSignalException signal) {
+                System.out.println("channel on shutdown: " + signal.getMessage());
+            }
+        });
         return factory;
     }
 
@@ -32,7 +48,9 @@ public class MyRabbitConfig {
 
     @Bean
     public RabbitTemplate rabbitTemplate() {
-        return new RabbitTemplate(connectionFactory());
+        RabbitTemplate template = new RabbitTemplate(connectionFactory());
+//        template.setChannelTransacted(true);
+        return template;
     }
 
     @Bean
