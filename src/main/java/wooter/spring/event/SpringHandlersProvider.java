@@ -1,5 +1,7 @@
 package wooter.spring.event;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -8,6 +10,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @Component
 public class SpringHandlersProvider implements ApplicationListener<ContextRefreshedEvent> {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private volatile AtomicBoolean isInit = new AtomicBoolean(false);
 
@@ -18,6 +22,6 @@ public class SpringHandlersProvider implements ApplicationListener<ContextRefres
             return;
         }
         //do something
-        System.out.println("ContextRefreshedEvent fire!");
+        log.error("ContextRefreshedEvent fire!");
     }
 }

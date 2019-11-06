@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/js/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="/js/jquery/ajaxfileupload.js"></script>
+</head>
+<body>
+<form method="POST" action="/app/multipart/uploadFile" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td>form上传</td>
+        </tr>
+        <tr>
+            <td>File</td>
+            <td><input type="file" name="uploadFile" /></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" name="name"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"/></td>
+        </tr>
+    </table>
+</form>
+
+<br/>
+
+<table>
+    <tr>
+        <td>ajaxFileUpload上传</td>
+    </tr>
+    <tr>
+        <td>File</td>
+        <td><input id="uploadFile" type="file"/></td>
+    </tr>
+    <tr>
+        <td><input id="ajaxUpload" type="button" value="Upload"/></td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    $("#ajaxUpload").click(function () {
+        $.ajaxFileUpload({
+            url: '/app/multipart/uploadFile', //用于文件上传的服务器端请求地址
+            secureuri: false, //是否需要安全协议，一般设置为false
+            fileElementId: 'uploadFile', //文件上传域的ID
+            dataType: 'text', //返回值类型 一般设置为json
+            data: {
+                name: "图片文件夹"
+            },
+            success: function (data) {
+                alert(data);
+            },
+            error: function (data) {
+                alert("请求异常 ");
+            }
+        });
+    })
+</script>
+</body>
+</html>
