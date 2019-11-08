@@ -47,6 +47,12 @@
       <artifactId>spring-rabbit</artifactId>
       <version>2.1.4.RELEASE</version>
     </dependency>
+    <!--https://docs.spring.io/spring-data/mongodb/docs/1.10.16.RELEASE/reference/html/#mongo.custom-converters-->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-mongodb</artifactId>
+      <version>1.10.16.RELEASE</version>
+    </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>

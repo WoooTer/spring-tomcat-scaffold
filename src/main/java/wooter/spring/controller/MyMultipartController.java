@@ -28,7 +28,6 @@ public class MyMultipartController {
             file.transferTo(desFile);
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
-
         }
 
         return "fileUpload Ok!";

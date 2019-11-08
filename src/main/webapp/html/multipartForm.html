@@ -10,7 +10,7 @@
 <form method="POST" action="/app/multipart/uploadFile" enctype="multipart/form-data">
     <table>
         <tr>
-            <td>form上传</td>
+            <td><b>form上传</b></td>
         </tr>
         <tr>
             <td>File</td>
@@ -25,12 +25,11 @@
         </tr>
     </table>
 </form>
-
 <br/>
 
 <table>
     <tr>
-        <td>ajaxFileUpload上传</td>
+        <td><b>ajaxFileUpload上传</b></td>
     </tr>
     <tr>
         <td>File</td>
@@ -38,6 +37,16 @@
     </tr>
     <tr>
         <td><input id="ajaxUpload" type="button" value="Upload"/></td>
+    </tr>
+</table>
+<br/>
+
+<table>
+    <tr>
+        <td><b>upload string as file</b></td>
+    </tr>
+    <tr>
+        <td><input id="stringAsFileUpload" type="button" value="stringUpload"/></td>
     </tr>
 </table>
 
@@ -58,7 +67,30 @@
                 alert("请求异常 ");
             }
         });
-    })
+    });
+
+    $("#stringAsFileUpload").click(function () {
+        var s = 'some string data';
+        var filename = 'foobar.txt';
+
+        var formData = new FormData();
+        formData.append('uploadFile', new File([new Blob([s])], filename));
+        formData.append('name', '图片文件夹');
+
+        $.ajax({
+            url: '/app/multipart/uploadFile',
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function () {
+                console.log('ok');
+            },
+            error: function () {
+                console.log('err'); // replace with proper error handling
+            }
+        });
+    });
 </script>
 </body>
 </html>
