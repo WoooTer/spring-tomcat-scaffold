@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    var varInWindow = "in window";
+
+    !function (global) {
+
+        var varInFirstClosure = "in first closure";
+
+        var myg = {};
+
+        !function (global) {
+            var varInSecondClosure = "in second closure";
+            global.varInSecondClosure = varInSecondClosure;
+        }(myg);
+
+        console.log(myg.varInSecondClosure);
+    }(this);
+
+    console.log(varInSecondClosure);
+
+</script>
+</body>
+</html>

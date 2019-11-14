@@ -1,0 +1,26 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>作用域CSS</title>
+    <script type="text/javascript" src="/js/jquery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="/js/jquery-plugins/jquery.scoped.js"></script>
+</head>
+<body>
+<div>
+    a div! <span>a span!</span>
+</div>
+<div id="scopedDiv">
+    <style scoped>
+        @import url("/css/scopedStyleSheet.css");
+    </style>
+    a div! <span>a span!</span>
+</div>
+<div>
+    a div! <span>a span!</span>
+</div>
+
+<script type="text/javascript">
+    $.scoped();
+</script>
+</body>
+</html>
