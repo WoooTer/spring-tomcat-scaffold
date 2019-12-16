@@ -81,7 +81,7 @@ co(function* () {
     var r1 = yield new Promise((resolve, reject) => {
         setTimeout(resolve, 1000, 'co 1000ms');
     });
-    console.log(r1);
+    console.log(r1 + "\n\n");
 
     var r2 = yield new Promise((resolve, reject) => {
         setTimeout(resolve, 500, 'co 500ms');
