@@ -2,7 +2,7 @@
 var rxjsTest = {
     observable: {},
     subject: {},
-    pipe: {}
+    operator: {}
 };
 
 /**
@@ -89,7 +89,11 @@ rxjsTest.subject.asObserver = function () {
     observable.subscribe(subject); // 你可以提供一个 Subject 进行订阅
 };
 
-rxjsTest.pipe.computeChain = function(){
+rxjsTest.operator.constructed = function () {
+    map(x => x * x)(of(1, 2, 3)).subscribe((v) => console.log(`value: ${v}`));
+};
+
+rxjsTest.operator.computeChain = function() {
     range(0, 10).pipe(
         filter(x => x % 2 === 0),
         map(x => x + x),

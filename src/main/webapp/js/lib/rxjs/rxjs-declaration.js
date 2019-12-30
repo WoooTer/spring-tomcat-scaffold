@@ -4,22 +4,39 @@ var Subject = rxjs.Subject;
 //创建
 var from = rxjs.from;
 var fromEvent = rxjs.fromEvent;
+var interval = rxjs.interval;
+var of = rxjs.of;
 var range = rxjs.range;
+
+//Join创建
+var concat = rxjs.concat;
+var merge = rxjs.merge;
 
 //转换
 var map = rxjs.operators.map;
+var concatMap = rxjs.operators.concatMap;
+var mergeMap = rxjs.operators.mergeMap;
+var switchMap = rxjs.operators.switchMap;
+var exhaustMap = rxjs.operators.exhaustMap;
+
 var scan = rxjs.operators.scan;
 
 //过滤
 var filter = rxjs.operators.filter;
+var take = rxjs.operators.take; //只发出源 Observable 最初发出的的N个值
 
-//组合
+//Join
+var concatAll  = rxjs.operators.concatAll; //通过顺序地连接内部 Observable，将高阶 Observable 转化为一阶 Observable
+var mergeAll  = rxjs.operators.mergeAll;
+var switchAll  = rxjs.operators.switchAll;
+var exhaust = rxjs.operators.exhaust;
 
 //多播
 
 //错误处理
 
 //工具
+var tap  = rxjs.operators.tap;
 
 //条件和布尔
 
