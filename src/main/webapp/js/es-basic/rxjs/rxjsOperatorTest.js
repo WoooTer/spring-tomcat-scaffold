@@ -75,7 +75,7 @@ rxjsOperatorTest.mergeAll = function () {
 rxjsOperatorTest.mergeMap = function () {
     const letters = of('a', 'b', 'c');
     const result = letters.pipe(
-        mergeMap(x => interval(1000).pipe(map(i => x+i))),
+        mergeMap(x => interval(1000).pipe(map(i => x + i))),
     );
     result.subscribe(x => console.log(x));
 };
@@ -117,6 +117,64 @@ rxjsOperatorTest.exhausMap = function () {
     const result = clicks.pipe(
         exhaustMap(ev => interval(1000).pipe(take(5))),
         // exhaustMap(ev => interval(1000).pipe(take(3)))
+    );
+    result.subscribe(x => console.log(x));
+};
+
+/**
+ * 【combine】
+ * of(70, 72, 76, 79, 75) 为同步流，所以会等其全部执行完，subscribe才会接收
+ */
+rxjsOperatorTest.combineLatest_sync = function () {
+    const weight = of(70, 72, 76, 79, 75);
+    const height = of(1.76, 1.77, 1.78);
+    const bmi = combineLatest(weight, height).pipe(
+        tap(e => console.log(e)),
+        map(([w, h]) => w / (h * h)),
+    );
+    bmi.subscribe(x => console.log('BMI is ' + x));
+};
+
+/**
+ * 由于js为单线程&事件队列，所以就算再怎么同时也依旧能分出先后
+ */
+rxjsOperatorTest.combineLatest_async_atSameTime = function () {
+    const firstTimer = interval(1000).pipe(delay(1000), take(4));
+    const secondTimer = interval(1000).pipe(delay(1100), take(4));
+    const combinedTimers = combineLatest(firstTimer, secondTimer);
+    combinedTimers.subscribe(value => console.log(value));
+};
+
+rxjsOperatorTest.combineAll = function () {
+    const source$ = interval(1000).pipe(take(2));
+    const example$ = source$.pipe(
+        map(val =>
+            interval(1000).pipe(
+                map(i => `Result (${val}): ${i}`),
+                take(5)
+            )
+        )
+    );
+
+    example$.pipe(combineAll())
+        .subscribe(console.log);
+};
+
+rxjsOperatorTest.combineAll_withRandom = function () {
+    const clicks = interval(1000).pipe(delay(1000), take(2));
+    let random = null;
+    const higherOrder = clicks.pipe(
+        tap(() => {
+            random = Math.random() * 2000; // 此处的 random值不同，会导致打印出来的结果不同
+            console.log(random);
+        }),
+        map(ev =>
+            interval(random).pipe(take(3))
+        )
+    );
+
+    const result = higherOrder.pipe(
+        combineAll()
     );
     result.subscribe(x => console.log(x));
 };

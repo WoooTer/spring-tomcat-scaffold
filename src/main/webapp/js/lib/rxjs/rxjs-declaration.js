@@ -7,8 +7,10 @@ var fromEvent = rxjs.fromEvent;
 var interval = rxjs.interval;
 var of = rxjs.of;
 var range = rxjs.range;
+var timer = rxjs.timer;
 
 //Join创建
+var combineLatest = rxjs.combineLatest;
 var concat = rxjs.concat;
 var merge = rxjs.merge;
 
@@ -30,6 +32,7 @@ var concatAll  = rxjs.operators.concatAll; //通过顺序地连接内部 Observa
 var mergeAll  = rxjs.operators.mergeAll;
 var switchAll  = rxjs.operators.switchAll;
 var exhaust = rxjs.operators.exhaust;
+var combineAll = rxjs.operators.combineAll;
 
 //多播
 
@@ -37,6 +40,7 @@ var exhaust = rxjs.operators.exhaust;
 
 //工具
 var tap  = rxjs.operators.tap;
+var delay  = rxjs.operators.delay;
 
 //条件和布尔
 
