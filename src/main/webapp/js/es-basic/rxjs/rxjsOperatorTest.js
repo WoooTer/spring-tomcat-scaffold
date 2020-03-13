@@ -178,3 +178,10 @@ rxjsOperatorTest.combineAll_withRandom = function () {
     );
     result.subscribe(x => console.log(x));
 };
+
+rxjsOperatorTest.defaultIfEmpty = function () {
+    of(1, 2, 3).pipe(
+        filter(e => e === 4),
+        defaultIfEmpty('is empty')
+    ).subscribe(console.log);
+};

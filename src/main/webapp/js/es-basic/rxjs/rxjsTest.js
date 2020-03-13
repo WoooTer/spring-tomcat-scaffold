@@ -56,6 +56,21 @@ rxjsTest.observable.unsubscribe = function () {
 };
 
 /**
+ *  operator 的两种调用方式
+ */
+rxjsTest.operator.constructed = function () {
+    map(x => x * x)(of(1, 2, 3)).subscribe((v) => console.log(`value: ${v}`));
+};
+
+rxjsTest.operator.computeChain = function() {
+    range(0, 10).pipe(
+        filter(x => x % 2 === 0),
+        map(x => x + x),
+        scan((acc, x) => acc + x, 0)
+    ).subscribe(x => console.log(x))
+};
+
+/**
  * 每个 Subject 都是 Observable
  */
 rxjsTest.subject.multicast = function () {
@@ -89,14 +104,29 @@ rxjsTest.subject.asObserver = function () {
     observable.subscribe(subject); // 你可以提供一个 Subject 进行订阅
 };
 
-rxjsTest.operator.constructed = function () {
-    map(x => x * x)(of(1, 2, 3)).subscribe((v) => console.log(`value: ${v}`));
+let subject_pipeTest = null;
+rxjsTest.subject.pipeTest = function () {
+    subject_pipeTest = new Subject();
+
+    fromEvent(document, 'click').pipe(
+        concatMap(e => subject_pipeTest),
+        concatMap(() => interval(1000).pipe(take(3)))
+    ).subscribe(console.log);
+
+    setTimeout(() => {
+        subject_pipeTest.next(88)
+    }, 3000);
 };
 
-rxjsTest.operator.computeChain = function() {
-    range(0, 10).pipe(
-        filter(x => x % 2 === 0),
-        map(x => x + x),
-        scan((acc, x) => acc + x, 0)
-    ).subscribe(x => console.log(x))
+rxjsTest.subject.pipeTest2 = function () {
+    const subject = new Subject();
+    const click = fromEvent(document, 'click');
+
+    combineLatest(
+        subject, click
+    ).subscribe(console.log);
+
+    setTimeout(() => {
+        subject.next(88)
+    }, 3000);
 };

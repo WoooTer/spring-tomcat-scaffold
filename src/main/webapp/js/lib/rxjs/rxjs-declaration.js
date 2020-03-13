@@ -12,6 +12,7 @@ var timer = rxjs.timer;
 //Join创建
 var combineLatest = rxjs.combineLatest;
 var concat = rxjs.concat;
+var forkJoin = rxjs.forkJoin;
 var merge = rxjs.merge;
 
 //转换
@@ -43,5 +44,6 @@ var tap  = rxjs.operators.tap;
 var delay  = rxjs.operators.delay;
 
 //条件和布尔
+var defaultIfEmpty  = rxjs.operators.defaultIfEmpty;
 
 //数学和聚合
