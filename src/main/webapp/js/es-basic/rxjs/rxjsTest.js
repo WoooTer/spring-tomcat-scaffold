@@ -151,6 +151,27 @@ rxjsTest.subject.pipeTest2 = function () {
     }, 3000);
 };
 
+rxjsTest.subject.SubjectToNull = function () {
+    // observerA will not emit and may lead to memory leaks
+    let subject = new Subject();
+    let subscriber1 = subject.subscribe({
+        next: (v) => console.log(`observerA: ${v}`)
+    });
+
+    subject = new Subject();
+    let subscriber2 = subject.subscribe({
+        next: (v) => console.log(`observerB: ${v}`)
+    });
+
+    subject.next(1);
+    subject.next(2);
+
+    setTimeout(() => {
+        console.log(subscriber1);
+        console.log(subscriber2);
+    }, 1000);
+};
+
 /**
  *  Notification
  */
