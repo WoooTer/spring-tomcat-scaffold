@@ -1,16 +1,17 @@
-
 var rxjsTest = {
     observable: {},
+    operator: {},
     subject: {},
-    operator: {}
+    notification: {},
+    error: {}
 };
 
 /**
  * 【关键词】：非惰性/惰性、主动/被动、单个值/多个值
  * Function 是惰性的评估运算，调用时会同步地返回一个单一值。
-   Generator 是惰性的评估运算，调用时会同步地返回零到(有可能的)无限多个值。
-   Promise 是最终可能(或可能不)返回单个值的运算。
-   Observable 是惰性的评估运算，它可以从它被调用的时刻起同步或异步地返回零到(有可能的)无限多个值。
+ Generator 是惰性的评估运算，调用时会同步地返回零到(有可能的)无限多个值。
+ Promise 是最终可能(或可能不)返回单个值的运算。
+ Observable 是惰性的评估运算，它可以从它被调用的时刻起同步或异步地返回零到(有可能的)无限多个值。
  */
 rxjsTest.observable.pushMultipleValue = function () {
     const observable = new Observable(subscriber => {
@@ -24,9 +25,15 @@ rxjsTest.observable.pushMultipleValue = function () {
     });
     console.log('just before subscribe');
     observable.subscribe({
-        next(x) { console.log('got value ' + x); },
-        error(err) { console.error('something wrong occurred: ' + err); },
-        complete() { console.log('done'); }
+        next(x) {
+            console.log('got value ' + x);
+        },
+        error(err) {
+            console.error('something wrong occurred: ' + err);
+        },
+        complete() {
+            console.log('done');
+        }
     });
     console.log('just after subscribe');
 };
@@ -48,7 +55,9 @@ rxjsTest.observable.unsubscribe = function () {
     });
 
     const subscription = observable.subscribe({
-        next(x) { console.log('got value ' + x); }
+        next(x) {
+            console.log('got value ' + x);
+        }
     });
     setTimeout(() => {
         subscription.unsubscribe();
@@ -62,12 +71,20 @@ rxjsTest.operator.constructed = function () {
     map(x => x * x)(of(1, 2, 3)).subscribe((v) => console.log(`value: ${v}`));
 };
 
-rxjsTest.operator.computeChain = function() {
+rxjsTest.operator.computeChain = function () {
     range(0, 10).pipe(
         filter(x => x % 2 === 0),
         map(x => x + x),
         scan((acc, x) => acc + x, 0)
     ).subscribe(x => console.log(x))
+};
+
+/**
+ * filter 空了，依旧会触发 complete
+ */
+rxjsTest.operator.filterEmpty = function () {
+    of(1).pipe(filter(e => e === 0)).subscribe(console.log, err => {
+    }, () => console.log('complete!'))
 };
 
 /**
@@ -91,7 +108,7 @@ rxjsTest.subject.multicast = function () {
  * 每个 Subject 也都是 观察者
  */
 rxjsTest.subject.asObserver = function () {
-    const  subject = new Subject();
+    const subject = new Subject();
 
     subject.subscribe({
         next: (v) => console.log('observerA: ' + v)
@@ -100,10 +117,13 @@ rxjsTest.subject.asObserver = function () {
         next: (v) => console.log('observerB: ' + v)
     });
 
-    const  observable = from([1, 2, 3]);
+    const observable = from([1, 2, 3]);
     observable.subscribe(subject); // 你可以提供一个 Subject 进行订阅
 };
 
+/**
+ *  Subject 也是 Obserable，可以被用在 cancatMap 中
+ */
 let subject_pipeTest = null;
 rxjsTest.subject.pipeTest = function () {
     subject_pipeTest = new Subject();
@@ -129,4 +149,51 @@ rxjsTest.subject.pipeTest2 = function () {
     setTimeout(() => {
         subject.next(88)
     }, 3000);
+};
+
+/**
+ *  Notification
+ */
+rxjsTest.notification.pipeTest = function () {
+    const click = fromEvent(document, 'click');
+    of(1).pipe(
+        switchMap(e => click),
+        map(e => Notification.createComplete()),
+        dematerialize()
+    ).subscribe(
+        console.log,
+        err => {
+        },
+        () => console.log('complete!')
+    )
+};
+
+/**
+ *  Error："Error" 和 "Complete" 通知可能只会在 Observable 执行期间发生一次，并且只会执行其中的一个。
+ */
+rxjsTest.error.test = function () {
+    of(1, 2, 3).pipe(
+        tap(e => {
+            throw 'error!';
+        }),
+    ).subscribe(console.log, console.error, () => console.log('complete!'))
+};
+
+rxjsTest.error.throwError = function () {
+    interval(1000).pipe(
+        mergeMap(x => x === 2
+            ? throwError('Twos are bad')
+            : of('a', 'b', 'c')
+        ),
+    ).subscribe(x => console.log(x), e => console.error(e));
+};
+
+rxjsTest.error.retry = function () {
+    interval(1000).pipe(
+        tap(console.log),
+        tap(e => {
+            throw 'error!';
+        }),
+        retry()
+    ).subscribe(console.log, console.error, () => console.log('complete!'))
 };

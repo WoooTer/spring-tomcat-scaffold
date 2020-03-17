@@ -1,5 +1,6 @@
 var Observable = rxjs.Observable;
 var Subject = rxjs.Subject;
+var Notification  = rxjs.Notification ;
 
 //创建
 var from = rxjs.from;
@@ -7,6 +8,7 @@ var fromEvent = rxjs.fromEvent;
 var interval = rxjs.interval;
 var of = rxjs.of;
 var range = rxjs.range;
+var throwError = rxjs.throwError;
 var timer = rxjs.timer;
 
 //Join创建
@@ -38,10 +40,15 @@ var combineAll = rxjs.operators.combineAll;
 //多播
 
 //错误处理
+var catchError = rxjs.operators.catchError;
+var retry = rxjs.operators.retry;
+var retryWhen = rxjs.operators.retryWhen;
 
 //工具
 var tap  = rxjs.operators.tap;
 var delay  = rxjs.operators.delay;
+var materialize  = rxjs.operators.materialize;
+var dematerialize  = rxjs.operators.dematerialize;
 
 //条件和布尔
 var defaultIfEmpty  = rxjs.operators.defaultIfEmpty;
