@@ -19,10 +19,13 @@ var merge = rxjs.merge;
 
 //转换
 var map = rxjs.operators.map;
+var mapTo = rxjs.operators.mapTo;
 var concatMap = rxjs.operators.concatMap;
 var mergeMap = rxjs.operators.mergeMap;
 var switchMap = rxjs.operators.switchMap;
 var exhaustMap = rxjs.operators.exhaustMap;
+var expand = rxjs.operators.expand;
+var groupBy = rxjs.operators.groupBy;
 
 var scan = rxjs.operators.scan;
 
@@ -54,3 +57,4 @@ var dematerialize  = rxjs.operators.dematerialize;
 var defaultIfEmpty  = rxjs.operators.defaultIfEmpty;
 
 //数学和聚合
+var reduce  = rxjs.operators.reduce;

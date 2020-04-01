@@ -179,6 +179,39 @@ rxjsOperatorTest.combineAll_withRandom = function () {
     result.subscribe(x => console.log(x));
 };
 
+rxjsOperatorTest.expand = function () {
+    const clicks = fromEvent(document, 'click');
+    const powersOfTwo = clicks.pipe(
+        mapTo(1),
+        expand(x => of(2 * x).pipe(delay(1000))),
+        take(10),
+    );
+    powersOfTwo.subscribe(x => console.log(x));
+};
+
+rxjsOperatorTest.groupBy = function () {
+    of(
+        {id: 1, name: 'JavaScript'},
+        {id: 2, name: 'Parcel'},
+        {id: 2, name: 'webpack'},
+        {id: 1, name: 'TypeScript'},
+        {id: 3, name: 'TSLint'}
+    ).pipe(
+        tap(e => console.log(e.id + ':' + e.name)),
+        /**
+         * 每当发现新的分组元素，就会创建一个新的group$(Subject)
+         * group$每次收到 一个属于它分组的值，就会通过Subject发出这个值
+         */
+        groupBy(p => p.id),
+        tap(console.log),
+        tap(group$ => {
+            group$.subscribe(console.log)
+        })
+        // mergeMap((group$) => group$.pipe(reduce((acc, cur) => [...acc, cur], [])))
+    )
+        .subscribe(p => {});
+};
+
 rxjsOperatorTest.defaultIfEmpty = function () {
     of(1, 2, 3).pipe(
         filter(e => e === 4),
