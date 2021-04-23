@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.concurrent.ThreadPoolExecutor;
 
+/**
+ * http://localhost:8081/AsyncLongRunningServlet?time=3000
+ */
 @WebServlet(urlPatterns = "/AsyncLongRunningServlet", asyncSupported = true)
 public class AsyncLongRunningServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

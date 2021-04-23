@@ -18,11 +18,11 @@ public class MyMongoConfig extends AbstractMongoConfiguration {
 
     @Override
     public Mongo mongo() throws Exception {
-        return new Mongo("localhost", 27017);
+        return new Mongo("127.0.0.1", 57018);
     }
 
     protected UserCredentials getUserCredentials() {
-        return new UserCredentials("his", "xxxxxx");
+        return new UserCredentials("his", "Chis2020");
     }
 
     @Bean

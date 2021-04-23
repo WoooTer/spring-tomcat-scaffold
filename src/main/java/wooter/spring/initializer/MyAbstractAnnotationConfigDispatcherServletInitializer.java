@@ -1,10 +1,7 @@
 package wooter.spring.initializer;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import wooter.spring.config.MyRabbitConfig;
-import wooter.spring.config.MyRootConfig;
-import wooter.spring.config.MyWebConfig;
-import wooter.spring.config.MyWebSocketConfig;
+import wooter.spring.config.*;
 
 import javax.servlet.Filter;
 
@@ -12,7 +9,7 @@ public class MyAbstractAnnotationConfigDispatcherServletInitializer extends Abst
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] { MyRootConfig.class, MyRabbitConfig.class};
+        return new Class<?>[] { MyRootConfig.class, MyRabbitConfig.class, MyMongoConfig.class};
     }
 
     @Override

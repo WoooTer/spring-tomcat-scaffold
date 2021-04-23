@@ -43,19 +43,21 @@ public class MongoTest {
 
     @Test
     public void gridFsStore() throws Exception{
-        InputStream inputStream = new FileInputStream("C:/Users/taota/Desktop/截图/0dfd78310a55b3195e4222654ca98226cffc1721.gif");
+        InputStream inputStream = new FileInputStream("D:/mybatis-plus 实践及架构原理.pdf");
         DBObject metaData = new BasicDBObject();
-        metaData.put("user", "alex");
-        gridFsTemplate.store(inputStream, "test.gif", "image/gif", metaData).toString();
+        metaData.put("user", "linux");
+        GridFSFile gridFSFile = gridFsTemplate.store(inputStream, "mybatis-plus 实践及架构原理.pdf", "application/pdf", metaData);
+        String out = gridFSFile.toString();
+        System.out.println(out);
     }
 
     @Test
     public void gridFsFind() throws Exception{
-        String id = "5dc514dd4300250f91243183";
+        String id = "605d48826bbd53edfff7c691";
         Query q = query(where("_id").is(id));
         GridFSDBFile gridFsFile = gridFsTemplate.findOne(q);
         gridFsFile.getInputStream();
-        writeToLocal("C:/Users/taota/Desktop/mytest.gif", gridFsFile.getInputStream());
+        writeToLocal("D:/mybatis-plus 实践及架构原理.pdf", gridFsFile.getInputStream());
     }
 
 
